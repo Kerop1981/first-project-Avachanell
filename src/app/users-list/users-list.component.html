@@ -1,0 +1,3 @@
+ <div *ngFor="let users of users">
+    <app-user-card [CardUser]="users" (DeleteUser)="deleteUser($event)" ></app-user-card>
+</div>
