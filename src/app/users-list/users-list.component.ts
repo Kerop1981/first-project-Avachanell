@@ -3,6 +3,7 @@ import { User, UsersApiService } from '../service/users-api.service';
 import { UserService } from '../service/user.service';
 import { UserCardComponent } from "../user-card/user-card.component";
 import { CommonModule } from '@angular/common';
+import { Observable, map } from 'rxjs';
 @Component({
     selector: 'users-list',
     standalone: true,
@@ -11,7 +12,7 @@ import { CommonModule } from '@angular/common';
     imports: [CommonModule, UserCardComponent]
 })
 export class UsersListComponent implements OnInit{
-  users: User[] = []
+  users!: Observable<User[]>
 
 constructor(
   private UsersApiService:UsersApiService,
@@ -19,14 +20,13 @@ constructor(
 
 
 ngOnInit(): void {
-  this.UsersApiService.getUsers().subscribe(users => {
-    this.UserService.setUsers(users);
-    this.users = users;
-  })
-}
+  this.users = this.UsersApiService.getUsers()
+  }
+
 
 deleteUser(id: number): void {
   this.UserService.deleteUser(id);
-  this.users = this.users.filter(user => user.id !== id);
+  this.users = this.users.pipe(map(users => users.filter(user => user.id !== id))
+  );
 }
 }
