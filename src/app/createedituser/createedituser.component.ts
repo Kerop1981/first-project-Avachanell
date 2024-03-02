@@ -4,10 +4,11 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
 @Component({
   selector: 'createedituser',
   standalone: true,
-  imports: [ MatFormFieldModule,ReactiveFormsModule,MatDialogModule],
+  imports: [ MatFormFieldModule,ReactiveFormsModule,MatDialogModule,MatInputModule],
   templateUrl: './createedituser.component.html',
   styleUrl: './createedituser.component.css'
 })
