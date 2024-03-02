@@ -1,5 +1,8 @@
  <div *ngIf="(users | async) as users">
  <div *ngFor="let users of users">
     <app-user-card [CardUser]="users" (DeleteUser)="deleteUser($event)" ></app-user-card>
-</div>
+    </div>
+<createedituser>
+    <button mat-button (click)="openMatDialog()">добавить пользователя</button>
+</createedituser>
 </div>
