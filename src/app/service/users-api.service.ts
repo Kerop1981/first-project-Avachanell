@@ -15,13 +15,13 @@ export interface User {
 
 export class UsersApiService {
   private url = 'https://jsonplaceholder.typicode.com/users/'
+ 
 
   constructor(
-    private hhtp:HttpClient,
+    private http:HttpClient,
   ) {}
 
-  getUsers(): Observable<User[]>{
-    return this.hhtp.get<User[]>(this.url)
-
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.url);
   }
 }

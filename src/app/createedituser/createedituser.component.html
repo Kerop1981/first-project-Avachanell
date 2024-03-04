@@ -1,18 +1,24 @@
-<h1 mat-dialog-title>{{ data.isEdit ? 'Редактировать пользователя' : 'Добавить пользователя' }}</h1>
+<h2 mat-dialog-title>Добавить пользователя</h2>
 <div mat-dialog-content>
-  <form [formGroup]="userForm">
-    <mat-form-field>
-      <input matInput formControlName="name" placeholder="Имя пользователя">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput formControlName="email" placeholder="Почта пользователя">
-    </mat-form-field>
-    <mat-form-field>
-      <input matInput formControlName="phone" placeholder="Телефон пользователя">
-    </mat-form-field>
-  </form>
+  <mat-form-field>
+    <input matInput placeholder="Имя пользователя" [(ngModel)]="newUser.name" />
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      placeholder="Почта пользователя"
+      [(ngModel)]="newUser.email"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      placeholder="Номер пользователя"
+      [(ngModel)]="newUser.phone"
+    />
+  </mat-form-field>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onCancelClick()">Отмена</button>
-  <button mat-button color="primary" (click)="onSaveClick()">{{ data.isEdit ? 'Сохранить' : 'Создать' }}</button>
+  <button mat-button color="primary" (click)="onCreateClick()">Создать</button>
 </div>

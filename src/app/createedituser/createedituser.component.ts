@@ -1,38 +1,49 @@
-import { Component, Inject} from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { ReactiveFormsModule } from '@angular/forms';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatInputModule } from '@angular/material/input';
+import {Component, Inject} from '@angular/core';
+import {MAT_DIALOG_DATA,MatDialogActions,MatDialogContent,MatDialogRef,MatDialogTitle} from '@angular/material/dialog';
+import {MatInputModule} from "@angular/material/input";
+import {FormsModule} from "@angular/forms";
+import {MatButtonModule} from "@angular/material/button";
+import { UserService } from '../service/user.service';
 @Component({
   selector: 'createedituser',
   standalone: true,
-  imports: [ MatFormFieldModule,ReactiveFormsModule,MatDialogModule,MatInputModule],
+  imports: [   
+    MatInputModule,
+    FormsModule,
+    MatDialogActions,
+    MatButtonModule,
+    MatDialogContent,
+    MatDialogTitle],
   templateUrl: './createedituser.component.html',
   styleUrl: './createedituser.component.css'
 })
-export class CreateedituserComponent {
-  userForm!: FormGroup;
+export class CreateedituserComponent  {
+  newUser: any = {  name: '', email: '', phone: '' };
 
   constructor(
-    private dialogRef : MatDialogRef<CreateedituserComponent>,
-    private fb: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data: {isEdit: boolean}
-  ){
-    this.userForm = this.fb.group({
-      name:'',
-      email: '',
-      phone: '',
-    });
+    public dialogRef: MatDialogRef<CreateedituserComponent>,
+    private UserService : UserService,
+    @Inject(MAT_DIALOG_DATA) public data: any
+  ) {
+    if(data?.user){
+      this.newUser = data.user
+    }
   }
 
   onCancelClick(): void {
-    this.dialogRef.close()
+    this.dialogRef.close();
   }
 
-  onSaveClick(): void {
-    this.dialogRef.close(this.userForm.value)
+  onCreateClick(): void {
+    if(this.newUser?.id){
+      this.UserService.updateUser(this.newUser);
+      this.dialogRef.close(true);
+      return
+    }
+    this.UserService.createUser({...this.newUser, id: this.data.id});
+    this.dialogRef.close(true);
   }
+
 }
+
 
